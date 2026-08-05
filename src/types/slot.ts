@@ -32,6 +32,12 @@ export interface BookSlotResponse {
   confirmationCode: string;
 }
 
+export interface DayGroup {
+  dateKey: string; // YYYY-MM-DD in WAT
+  dateHeading: string; // "Weekday, D Month YYYY" in WAT
+  slots: Slot[];
+}
+
 /**
  Error Types
  */

@@ -1,7 +1,12 @@
+import { useMemo } from "react";
 import { useSlots } from "./hooks/useSlots";
+import { groupSlotsByWATDay } from "./utils/groupSlots";
 
 export default function App() {
   const { slots, isInitialLoad, error, retry } = useSlots();
+
+  // Keep derived state purely calculated from the raw slots array
+  const groupedSlots = useMemo(() => groupSlotsByWATDay(slots), [slots]);
 
   return (
     <main className="p-4 max-w-md mx-auto font-sans">
@@ -24,10 +29,22 @@ export default function App() {
       )}
 
       {!isInitialLoad && !error && (
-        <div className="bg-green-50 text-green-800 p-4 rounded-md">
-          <p>
-            Loaded <strong>{slots.length}</strong> slots.
-          </p>
+        <div className="space-y-6">
+          {groupedSlots.map((group) => (
+            <div key={group.dateKey} className="border-t pt-4">
+              <h2 className="text-lg font-semibold text-gray-800 mb-2">
+                {group.dateHeading}
+              </h2>
+              <p className="text-gray-600">
+                {group.slots.length} available{" "}
+                {group.slots.length === 1 ? "slot" : "slots"}
+              </p>
+            </div>
+          ))}
+
+          {groupedSlots.length === 0 && (
+            <p className="text-gray-500">No appointments found.</p>
+          )}
         </div>
       )}
     </main>
