@@ -1,0 +1,292 @@
+{
+  "slots": [
+    {
+      "id": "slot_001",
+      "startUtc": "2026-09-06T23:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Fatima Bello",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_002",
+      "startUtc": "2026-09-07T08:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Adeyemi Okafor",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_003",
+      "startUtc": "2026-09-07T08:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Adeyemi Okafor",
+      "mode": "in-person",
+      "status": "held"
+    },
+    {
+      "id": "slot_004",
+      "startUtc": "2026-09-07T09:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Ngozi Balogun",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_005",
+      "startUtc": "2026-09-07T13:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Tunde Achebe",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_006",
+      "startUtc": "2026-09-07T13:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Tunde Achebe",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_007",
+      "startUtc": "2026-09-07T15:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Chidi Nwosu",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_008",
+      "startUtc": "2026-09-08T07:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Adeyemi Okafor",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_009",
+      "startUtc": "2026-09-08T08:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Adeyemi Okafor",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_010",
+      "startUtc": "2026-09-08T08:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Ngozi Balogun",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_011",
+      "startUtc": "2026-09-08T10:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Ngozi Balogun",
+      "mode": "virtual",
+      "status": "held"
+    },
+    {
+      "id": "slot_012",
+      "startUtc": "2026-09-08T10:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Fatima Bello",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_013",
+      "startUtc": "2026-09-08T14:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Tunde Achebe",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_014",
+      "startUtc": "2026-09-08T14:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Tunde Achebe",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_015",
+      "startUtc": "2026-09-08T16:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Chidi Nwosu",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_016",
+      "startUtc": "2026-09-09T08:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Ngozi Balogun",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_017",
+      "startUtc": "2026-09-09T08:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Ngozi Balogun",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_018",
+      "startUtc": "2026-09-09T09:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Chidi Nwosu",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_019",
+      "startUtc": "2026-09-09T09:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Chidi Nwosu",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_020",
+      "startUtc": "2026-09-10T07:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Adeyemi Okafor",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_021",
+      "startUtc": "2026-09-10T07:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Adeyemi Okafor",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_022",
+      "startUtc": "2026-09-10T11:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Fatima Bello",
+      "mode": "virtual",
+      "status": "held"
+    },
+    {
+      "id": "slot_023",
+      "startUtc": "2026-09-10T12:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Fatima Bello",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_024",
+      "startUtc": "2026-09-10T12:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Tunde Achebe",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_025",
+      "startUtc": "2026-09-10T15:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Chidi Nwosu",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_026",
+      "startUtc": "2026-09-11T08:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Ngozi Balogun",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_027",
+      "startUtc": "2026-09-11T09:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Ngozi Balogun",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_028",
+      "startUtc": "2026-09-11T10:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Adeyemi Okafor",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_029",
+      "startUtc": "2026-09-11T14:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Fatima Bello",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_030",
+      "startUtc": "2026-09-11T14:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Fatima Bello",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_031",
+      "startUtc": "2026-09-12T09:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Tunde Achebe",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_032",
+      "startUtc": "2026-09-12T09:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Tunde Achebe",
+      "mode": "virtual",
+      "status": "held"
+    },
+    {
+      "id": "slot_033",
+      "startUtc": "2026-09-12T10:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Chidi Nwosu",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_034",
+      "startUtc": "2026-09-13T23:15:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Fatima Bello",
+      "mode": "virtual",
+      "status": "open"
+    },
+    {
+      "id": "slot_035",
+      "startUtc": "2026-09-14T08:00:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Adeyemi Okafor",
+      "mode": "in-person",
+      "status": "open"
+    },
+    {
+      "id": "slot_036",
+      "startUtc": "2026-09-14T08:30:00Z",
+      "durationMinutes": 30,
+      "clinician": "Dr. Ngozi Balogun",
+      "mode": "in-person",
+      "status": "open"
+    }
+  ]
+}
