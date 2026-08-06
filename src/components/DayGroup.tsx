@@ -12,7 +12,6 @@ export const DayGroup: React.FC<DayGroupProps> = ({
   onBook,
   bookingSlotId,
 }) => {
-  // Use a stable, sanitized ID for the aria-labelledby connection
   const headingId = `heading-${group.dateKey}`;
 
   return (

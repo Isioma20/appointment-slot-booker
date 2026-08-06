@@ -1,5 +1,3 @@
-// src/hooks/useSlots.ts
-
 import { useState, useEffect, useCallback, useRef } from "react";
 import { fetchSlots, bookSlot, ApiError, ConflictError } from "../mock-api";
 import type { Slot } from "../types/slot";
@@ -27,7 +25,6 @@ export function useSlots() {
   const fetchIdRef = useRef(0);
 
   // --- Search Debounce Effect ---
-  // Updates the actual query sent to the server only after the user stops typing for 300ms.
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedQuery(query);
@@ -49,10 +46,8 @@ export function useSlots() {
     const { from, to } = watDateToUtcRange(watStartDate, watEndDate);
 
     try {
-      // Trigger search on the server using the debounced query
       const response = await fetchSlots({ query: debouncedQuery, from, to });
 
-      // Stale Request Protection: Only update state if this is the most recently initiated fetch
       if (currentFetchId === fetchIdRef.current) {
         setSlots(response.slots);
         setHasFetchedOnce(true);
@@ -106,7 +101,7 @@ export function useSlots() {
     }
   }, []);
 
-  // Utility functions to dismiss alerts cleanly (Now Memoized)
+  // Utility functions to dismiss alerts cleanly
   const clearSuccess = useCallback(() => setConfirmationCode(null), []);
   const clearConflict = useCallback(() => setConflictError(null), []);
 

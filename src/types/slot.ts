@@ -33,8 +33,8 @@ export interface BookSlotResponse {
 }
 
 export interface DayGroup {
-  dateKey: string; // YYYY-MM-DD in WAT
-  dateHeading: string; // "Weekday, D Month YYYY" in WAT
+  dateKey: string;
+  dateHeading: string;
   slots: Slot[];
 }
 

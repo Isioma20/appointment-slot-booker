@@ -37,7 +37,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-12">
-      {/* Static Header with Filters (Sticky removed for better mobile layout) */}
       <header className="bg-white border-b border-gray-200 pt-8 pb-6 px-4 mb-6 shadow-sm">
         <div className="max-w-2xl mx-auto">
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1">
@@ -60,7 +59,6 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="max-w-2xl mx-auto px-4">
-        {/* --- Independent Feedback Overlays --- */}
         {confirmationCode && (
           <SuccessBanner code={confirmationCode} onDismiss={clearSuccess} />
         )}
@@ -68,9 +66,6 @@ export default function App() {
         {conflictError && (
           <ConflictBanner message={conflictError} onDismiss={clearConflict} />
         )}
-
-        {/* --- Refetch Indicator --- */}
-        {/* Renders alongside existing data without hiding it */}
         {isRefetching && <RefreshingIndicator />}
 
         {/* --- Core Rendering Flow (Mutually Exclusive) --- */}
