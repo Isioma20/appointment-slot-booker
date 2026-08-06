@@ -1,21 +1,23 @@
+// src/hooks/useSlots.ts
+
 import { useState, useEffect, useCallback, useRef } from "react";
 import { fetchSlots, bookSlot, ApiError, ConflictError } from "../mock-api";
 import type { Slot } from "../types/slot";
 import { watDateToUtcRange } from "../utils/dateUtils";
 
 export function useSlots() {
-  // Filter State
+  // --- Filter State ---
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [watStartDate, setWatStartDate] = useState<string>("");
   const [watEndDate, setWatEndDate] = useState<string>("");
 
-  // Data and UI State
+  // --- Data and UI State ---
   const [slots, setSlots] = useState<Slot[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const [hasFetchedOnce, setHasFetchedOnce] = useState(false);
 
-  // Error, Success, and Action States
+  // --- Error, Success, and Action States ---
   const [error, setError] = useState<ApiError | null>(null);
   const [conflictError, setConflictError] = useState<string | null>(null);
   const [confirmationCode, setConfirmationCode] = useState<string | null>(null);
@@ -24,7 +26,8 @@ export function useSlots() {
   // Ref to prevent race conditions during rapid filter changes
   const fetchIdRef = useRef(0);
 
-  // --- Debounce Effect ---
+  // --- Search Debounce Effect ---
+  // Updates the actual query sent to the server only after the user stops typing for 300ms.
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedQuery(query);
@@ -46,8 +49,10 @@ export function useSlots() {
     const { from, to } = watDateToUtcRange(watStartDate, watEndDate);
 
     try {
+      // Trigger search on the server using the debounced query
       const response = await fetchSlots({ query: debouncedQuery, from, to });
 
+      // Stale Request Protection: Only update state if this is the most recently initiated fetch
       if (currentFetchId === fetchIdRef.current) {
         setSlots(response.slots);
         setHasFetchedOnce(true);
@@ -73,7 +78,7 @@ export function useSlots() {
   }, [loadSlots]);
 
   // --- Booking Logic ---
-  const book = async (slotId: string) => {
+  const book = useCallback(async (slotId: string) => {
     setError(null);
     setConflictError(null);
     setConfirmationCode(null);
@@ -82,16 +87,12 @@ export function useSlots() {
     try {
       const response = await bookSlot(slotId);
       setConfirmationCode(response.confirmationCode);
-
-      // Update local state to reflect the successful booking
       setSlots((prev) =>
         prev.map((s) => (s.id === slotId ? response.slot : s)),
       );
     } catch (err) {
       if (err instanceof ConflictError) {
         setConflictError(err.message);
-
-        // The slot was taken by someone else. Mutate local state so it becomes visibly held.
         setSlots((prev) =>
           prev.map((s) => (s.id === slotId ? { ...s, status: "held" } : s)),
         );
@@ -103,11 +104,11 @@ export function useSlots() {
     } finally {
       setBookingSlotId(null);
     }
-  };
+  }, []);
 
-  // Utility functions to dismiss alerts
-  const clearSuccess = () => setConfirmationCode(null);
-  const clearConflict = () => setConflictError(null);
+  // Utility functions to dismiss alerts cleanly (Now Memoized)
+  const clearSuccess = useCallback(() => setConfirmationCode(null), []);
+  const clearConflict = useCallback(() => setConflictError(null), []);
 
   return {
     // Data & UI State

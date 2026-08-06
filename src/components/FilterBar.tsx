@@ -16,7 +16,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   onEndDateChange,
 }) => {
   return (
-    <section
+    <form
       aria-labelledby="filter-heading"
       className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"
     >
@@ -78,6 +78,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           </div>
         </div>
       </div>
-    </section>
+    </form>
   );
 };
