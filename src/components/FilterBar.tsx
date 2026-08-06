@@ -1,5 +1,3 @@
-import React from "react";
-
 interface FilterBarProps {
   query: string;
   onQueryChange: (query: string) => void;
@@ -32,9 +30,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         Filter Appointments
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 min-w-0">
+      <div className="flex flex-col md:flex-row gap-4 w-full">
         {/* Search Input */}
-        <div className="md:col-span-5 min-w-0">
+        <div className="flex-[5] w-full">
           <label
             htmlFor="clinician-search"
             className="block text-sm font-medium text-gray-700 mb-1"
@@ -47,13 +45,12 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             placeholder="Search by clinician..."
-            className="w-full px-3 py-2 min-w-0 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
           />
         </div>
 
-        {/* Date Filters */}
-        <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 min-w-0">
-          <div className="min-w-0">
+        <div className="flex-[7] flex flex-col sm:flex-row gap-4 w-full">
+          <div className="flex-1 w-full">
             <label
               htmlFor="start-date"
               className="block text-sm font-medium text-gray-700 mb-1"
@@ -65,11 +62,11 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               type="date"
               value={startDate}
               onChange={(e) => onStartDateChange(e.target.value)}
-              className="w-full px-3 py-2 min-w-0 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+              className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
             />
           </div>
 
-          <div className="min-w-0">
+          <div className="flex-1 w-full">
             <label
               htmlFor="end-date"
               className="block text-sm font-medium text-gray-700 mb-1"
@@ -81,7 +78,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               type="date"
               value={endDate}
               onChange={(e) => onEndDateChange(e.target.value)}
-              className="w-full px-3 py-2 min-w-0 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+              className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
             />
           </div>
         </div>
