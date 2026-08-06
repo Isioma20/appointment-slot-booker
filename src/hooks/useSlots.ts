@@ -78,16 +78,18 @@ export function useSlots() {
     setConflictError(null);
     setConfirmationCode(null);
     setBookingSlotId(slotId);
-
     try {
       const response = await bookSlot(slotId);
       setConfirmationCode(response.confirmationCode);
+
       setSlots((prev) =>
         prev.map((s) => (s.id === slotId ? response.slot : s)),
       );
-    } catch (err) {
+    } catch (err: unknown) {
       if (err instanceof ConflictError) {
-        setConflictError(err.message);
+        // Tell TypeScript explicitly that this error has the properties of a ConflictError
+        setConflictError((err as ConflictError).message);
+
         setSlots((prev) =>
           prev.map((s) => (s.id === slotId ? { ...s, status: "held" } : s)),
         );
