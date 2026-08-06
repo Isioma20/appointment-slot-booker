@@ -16,12 +16,13 @@ export function useSlots() {
   const [hasFetchedOnce, setHasFetchedOnce] = useState(false);
 
   // --- Error, Success, and Action States ---
-  const [error, setError] = useState<ApiError | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const [conflictError, setConflictError] = useState<string | null>(null);
   const [confirmationCode, setConfirmationCode] = useState<string | null>(null);
+
   const [bookingSlotId, setBookingSlotId] = useState<string | null>(null);
 
-  // Ref to prevent race conditions during rapid filter changes
+  // Ref to track the latest fetch request and prevent race conditions
   const fetchIdRef = useRef(0);
 
   // --- Search Debounce Effect ---
@@ -42,7 +43,6 @@ export function useSlots() {
     setConflictError(null);
     setConfirmationCode(null);
 
-    // Transform WAT calendar inputs to UTC ISO instants
     const { from, to } = watDateToUtcRange(watStartDate, watEndDate);
 
     try {
@@ -52,12 +52,16 @@ export function useSlots() {
         setSlots(response.slots);
         setHasFetchedOnce(true);
       }
-    } catch (err) {
+    } catch (err: unknown) {
       if (currentFetchId === fetchIdRef.current) {
         if (err instanceof ApiError) {
-          setError(err);
+          setError(
+            new Error(
+              "We're currently unable to load the available appointment slots. Please check your connection and try again.",
+            ),
+          );
         } else {
-          console.error("Unexpected error fetching slots:", err);
+          setError(err as Error);
         }
       }
     } finally {
@@ -67,7 +71,6 @@ export function useSlots() {
     }
   }, [debouncedQuery, watStartDate, watEndDate]);
 
-  // Reactively fetch data whenever the debounced query or dates change
   useEffect(() => {
     loadSlots();
   }, [loadSlots]);
@@ -78,6 +81,7 @@ export function useSlots() {
     setConflictError(null);
     setConfirmationCode(null);
     setBookingSlotId(slotId);
+
     try {
       const response = await bookSlot(slotId);
       setConfirmationCode(response.confirmationCode);
@@ -87,14 +91,17 @@ export function useSlots() {
       );
     } catch (err: unknown) {
       if (err instanceof ConflictError) {
-        // Tell TypeScript explicitly that this error has the properties of a ConflictError
-        setConflictError((err as ConflictError).message);
+        setConflictError(err.message);
 
         setSlots((prev) =>
           prev.map((s) => (s.id === slotId ? { ...s, status: "held" } : s)),
         );
       } else if (err instanceof ApiError) {
-        setError(err);
+        setError(
+          new Error(
+            "Your booking request timed out due to a connection delay. Please try clicking 'Book' again.",
+          ),
+        );
       } else {
         console.error("Unexpected error booking slot:", err);
       }
@@ -103,7 +110,7 @@ export function useSlots() {
     }
   }, []);
 
-  // Utility functions to dismiss alerts cleanly
+  // Utility functions to dismiss alerts cleanly from the UI components
   const clearSuccess = useCallback(() => setConfirmationCode(null), []);
   const clearConflict = useCallback(() => setConflictError(null), []);
 

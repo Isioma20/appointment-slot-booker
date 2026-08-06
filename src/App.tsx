@@ -9,7 +9,7 @@ import { RefreshingIndicator } from "./components/RefreshingIndicator";
 import { ErrorState } from "./components/ErrorState";
 import { EmptyState } from "./components/EmptyState";
 import { SuccessModal } from "./components/SuccessModal";
-import { ConflictBanner } from "./components/ConflictBanner";
+import { ConflictModal } from "./components/ConflictModal";
 
 export default function App() {
   const {
@@ -67,7 +67,7 @@ export default function App() {
       {/* Main Content Area */}
       <main className="max-w-2xl mx-auto px-4">
         {conflictError && (
-          <ConflictBanner message={conflictError} onDismiss={clearConflict} />
+          <ConflictModal message={conflictError} onClose={clearConflict} />
         )}
         {isRefetching && <RefreshingIndicator />}
 

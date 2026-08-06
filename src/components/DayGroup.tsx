@@ -16,8 +16,11 @@ export const DayGroup: React.FC<DayGroupProps> = ({
 
   return (
     <section aria-labelledby={headingId} className="mb-10 last:mb-0">
-      <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 py-2 mb-3 border-b border-gray-100">
-        <h2 id={headingId} className="text-lg font-semibold text-gray-800">
+      <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 py-2 mb-3 border-b border-gray-100 rounded-xl">
+        <h2
+          id={headingId}
+          className="text-lg font-semibold text-gray-800 py-1 px-3"
+        >
           {group.dateHeading}
         </h2>
       </header>
