@@ -24,15 +24,14 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       role="search"
       aria-labelledby="filter-heading"
       onSubmit={(e) => e.preventDefault()}
-      className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col gap-4"
+      className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col gap-4 overflow-hidden"
     >
       <h2 id="filter-heading" className="sr-only">
         Filter Appointments
       </h2>
 
-      <div className="flex flex-col md:flex-row gap-4 w-full">
-        {/* Search Input */}
-        <div className="flex-[5] w-full">
+      <div className="flex flex-col md:flex-row gap-4 w-full min-w-0">
+        <div className="flex-[5] w-full min-w-0 basis-0">
           <label
             htmlFor="clinician-search"
             className="block text-sm font-medium text-gray-700 mb-1"
@@ -45,12 +44,12 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             placeholder="Search by clinician..."
-            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+            className="w-full min-w-0 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
           />
         </div>
 
-        <div className="flex-[7] flex flex-col sm:flex-row gap-4 w-full">
-          <div className="flex-1 w-full">
+        <div className="flex-[7] flex flex-col sm:flex-row gap-4 w-full min-w-0 basis-0 overflow-hidden">
+          <div className="flex-1 w-full min-w-0 basis-0 overflow-hidden">
             <label
               htmlFor="start-date"
               className="block text-sm font-medium text-gray-700 mb-1"
@@ -62,11 +61,11 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               type="date"
               value={startDate}
               onChange={(e) => onStartDateChange(e.target.value)}
-              className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+              className="w-full min-w-0 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
             />
           </div>
 
-          <div className="flex-1 w-full">
+          <div className="flex-1 w-full min-w-0 basis-0 overflow-hidden">
             <label
               htmlFor="end-date"
               className="block text-sm font-medium text-gray-700 mb-1"
@@ -78,7 +77,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               type="date"
               value={endDate}
               onChange={(e) => onEndDateChange(e.target.value)}
-              className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+              className="w-full min-w-0 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
             />
           </div>
         </div>
