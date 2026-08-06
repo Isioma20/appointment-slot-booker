@@ -8,7 +8,7 @@ import { LoadingState } from "./components/LoadingState";
 import { RefreshingIndicator } from "./components/RefreshingIndicator";
 import { ErrorState } from "./components/ErrorState";
 import { EmptyState } from "./components/EmptyState";
-import { SuccessBanner } from "./components/SuccessBanner";
+import { SuccessModal } from "./components/SuccessModal";
 import { ConflictBanner } from "./components/ConflictBanner";
 
 export default function App() {
@@ -35,6 +35,12 @@ export default function App() {
   // Derived state
   const groupedSlots = useMemo(() => groupSlotsByWATDay(slots), [slots]);
 
+  const handleResetFilters = () => {
+    setQuery("");
+    setWatStartDate("");
+    setWatEndDate("");
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-12">
       <header className="bg-white border-b border-gray-200 pt-8 pb-6 px-4 mb-6 shadow-sm">
@@ -53,16 +59,13 @@ export default function App() {
             onStartDateChange={setWatStartDate}
             endDate={watEndDate}
             onEndDateChange={setWatEndDate}
+            onReset={handleResetFilters}
           />
         </div>
       </header>
 
       {/* Main Content Area */}
       <main className="max-w-2xl mx-auto px-4">
-        {confirmationCode && (
-          <SuccessBanner code={confirmationCode} onDismiss={clearSuccess} />
-        )}
-
         {conflictError && (
           <ConflictBanner message={conflictError} onDismiss={clearConflict} />
         )}
@@ -80,6 +83,13 @@ export default function App() {
             groupedSlots={groupedSlots}
             onBook={book}
             bookingSlotId={bookingSlotId}
+          />
+        )}
+
+        {confirmationCode && (
+          <SuccessModal
+            confirmationCode={confirmationCode}
+            onClose={clearSuccess}
           />
         )}
       </main>
