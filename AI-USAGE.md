@@ -12,22 +12,28 @@ While the AI accelerated the typing process, its initial architectural decisions
 - **Component Responsibilities & Derived State:** The AI initially suggested grouping the slots inside the `SlotList` component itself and storing the grouped result in React state. I rewrote this to keep the grouping logic as a pure utility function (`groupSlotsByWATDay`) and wrapped it in a `useMemo` at the top level, keeping the UI components strictly presentational.
 - **Composition Layer (`App.tsx`) Cleanup:** When assembling the final app, the AI embedded raw JSX for the conflict error banner directly into `App.tsx` and overloaded the loading states. I conducted a PR-style review to force the extraction of `ConflictBanner` and `RefreshingIndicator`, ensuring `App.tsx` remained a clean, thin composition root.
 - **Performance Refinements:** I had to intervene when the AI's initial component wiring caused the entire list of slots to re-render on every search keystroke. I directed the AI to wrap the hook's callbacks in `useCallback` and the `SlotCard` in `React.memo` to fix the rendering bottleneck.
+- **UX Evolution (Success State):** The AI originally generated a standard `SuccessBanner` placed at the top of the UI. I rejected this because, on mobile devices, a user scrolling down a long list of slots would completely miss the success state. I directed the refactor to a centralized `SuccessModal` with focus management and Escape-key accessibility to immediately capture the viewport.
 
 ## Where the AI Failed and How I Corrected It
 
 The AI produced incorrect, incomplete, or suboptimal code in a few specific instances that required my direct correction:
 
 1. **Missing Domain Data Context**
+   - _The Issue:_ When generating the initial TypeScript interfaces, the AI relied solely on `mock-api.js` and guessed the shape of a `Slot`. It completely missed the `durationMinutes` property.
+   - _The Correction:_ I noticed this by comparing the types against the raw dataset. I provided the `slots.json` file and instructed the AI to strictly map the exact data structure rather than inventing properties.
 
-- _The Issue:_ When generating the initial TypeScript interfaces, the AI relied solely on `mock-api.js` and guessed the shape of a `Slot`. It completely missed the `durationMinutes` property.
-- _The Correction:_ I noticed this by comparing the types against the raw dataset. I provided the `slots.json` file and instructed the AI to strictly map the exact data structure rather than inventing properties.
-
-2. **Hallucinated Components**
-
-- _The Issue:_ During the UI composition phase, the AI confidently generated `App.tsx` referencing a `<FilterBar/>` component, but it had completely forgotten to actually write or provide the code for `FilterBar.tsx`.
-- _The Correction:_ I caught this oversight during the integration phase. Because the AI hallucinated a component we hadn't defined yet, I had to pause the composition step and explicitly spec out the `FilterBar` to ensure the inputs were correctly controlled and accessible before moving forward.
+2. **TypeScript Strictness & Mock APIs**
+   - _The Issue:_ The AI struggled with strict TypeScript integration. It initially failed to provide type declarations for the provided `mock-api.js` file (causing `TS7016` import errors) and left caught errors in the `useSlots` try-catch block typed as `unknown`, causing compilation failures when accessing `.message`.
+   - _The Correction:_ I prompted the AI to generate the necessary type contract (`FetchSlotsParams`, `Slot`, etc.) to safely bridge the JS/TS gap, and I directly intervened to apply explicit type assertions (`as ConflictError`) to satisfy the strict compiler checks.
 
 3. **Suboptimal Asynchronous UX**
+   - _The Issue:_ The AI's first draft of the `useSlots` hook successfully fetched data, but it lacked search debouncing, blocked the whole UI during single-slot bookings, and wiped the screen to show a loader during refetches.
+   - _The Correction:_ I rejected the draft and provided explicit UX requirements. I guided it to implement a 300ms debounce, track `bookingSlotId` to isolate loading states to the clicked button, and split the loading state into `isInitialLoad` and `isRefetching` to keep existing data visible while background fetching.
 
-- _The Issue:_ The AI's first draft of the `useSlots` hook successfully fetched data, but it lacked search debouncing, blocked the whole UI during single-slot bookings, and wiped the screen to show a loader during refetches.
-- _The Correction:_ I rejected the draft and provided explicit UX requirements. I guided it to implement a 300ms debounce, track `bookingSlotId` to isolate loading states to the clicked button, and split the loading state into `isInitialLoad` and `isRefetching` to keep existing data visible while background fetching.
+4. **Hallucinated Components**
+   - _The Issue:_ During the UI composition phase, the AI confidently generated `App.tsx` referencing a `<FilterBar/>` component, but it had completely forgotten to actually write or provide the code for `FilterBar.tsx`.
+   - _The Correction:_ I caught this oversight during the integration phase. Because the AI hallucinated a component we hadn't defined yet, I had to pause the composition step and explicitly spec out the `FilterBar` to ensure the inputs were correctly controlled and accessible before moving forward.
+
+5. **Mobile CSS Layout Hallucinations**
+   - _The Issue:_ The AI failed to account for Chrome Mobile's intrinsic width behavior on native `<input type="date">` elements, which aggressively blew out the Flexbox container bounds. When prompted for fixes, the AI suggested applying `basis-0`. Because the mobile layout was stacked vertically (`flex-col`), this blindly collapsed the height of the inputs to zero, making them disappear entirely.
+   - _The Correction:_ I isolated the specific CSS conflict causing the disappearance. I directed the AI to remove `basis-0`, retain proportional `flex-1` sizing, and apply `overflow-hidden` combined with `min-w-0` to strictly clip the native browser shadow DOM without breaking the flex axis.
